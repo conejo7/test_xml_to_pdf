@@ -1,26 +1,32 @@
-export const getOrdersByDate = async () => {
+export const getOrdersByDate = async (startDate, endDate) => {
     //const url = `https://api.giphy.com/v1/gifs/search?api_key=KvBXfifIRcb6d8H71R8LHnCEGLwytAEh&q=carne&limit=1`;
     //http://localhost:8091/ordersByDate?fechaInicio=2023-06-01
-    const url = `http://localhost:8091/ordersByDate?fechaInicio=2023-06-01`;
+    //const url = `http://localhost:8091/ordersByDate?fechaInicio=2023-06-01`;
+    console.log("star" + startDate);
+    console.log("end" + endDate);
+
+    // const url = `http://localhost:8091/getCustomOrdersByDate?fechaInicio=2023-06-01&fechaFinal=2023-06-02`;
+    const url = `http://localhost:8091/getCustomOrdersByDate?fechaInicio=${startDate}&fechaFinal=${endDate}`;
+
+
     const resp = await fetch(url);
-    // console.log(resp);
+
     const data = await resp.json();
-    console.log(data.map(elem => {return elem.idHistoria}));
-    //console.log(newOrdenes.map(elem => { return elem.idHistoria}))
-    const ordenes = data.map( elem => ({
+    console.log("data" + data);
+
+    const ordenes = data.map(elem => ({
+        fec_ingreso: elem.fec_ingreso,
         id: elem.id,
-        idHistoria: elem.idHistoria,
-        idEmpresa: elem.idEmpresa,
-        stsAdmin: elem.stsAdmin,
-        stsTecnico: elem.stsTecnico
-
+        id_historia: elem.id_historia,
+        apellidos: elem.apellidos,
+        nombres: elem.nombres,
+        num_id: elem.num_id,
+        abreviatura: elem.abreviatura,
+        m_solicitante: elem.m_solicitante,
+        sts_tecnico: elem.sts_tecnico,
+        codOrd: elem.codOrd
     }));
-    // const ordenes = data.map((elem) => {
-    //     return elem.id;
-    // });
-
-    // console.log(ordenes);
-    //
-     console.log("ordemap: "+ordenes[0].idEmpresa)
     return ordenes;
+
+
 }

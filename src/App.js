@@ -1,29 +1,32 @@
-// import logo from './logo.svg';
+
 import './App.css';
-import {useParams} from "react-router-dom";
+
 import AppRouter from "./router/AppRouter";
 import {ProductosGeneral} from "./productos/components/ProductosGeneral";
 
 
+import "react-datepicker/dist/react-datepicker.css";
+import React from "react";
+
+
 function App() {
 
-    // const params1 = new URLSearchParams(window.location.search);
-    // const user = params1.get('user');
-    // console.log(user);
-    // //const myParam = params.get('user');
-    // return <h2>User ID: {user}</h2>;
     const params1 = new URLSearchParams(window.location.search);
     const user = params1.get('user');
     console.log(user);
-    //const myParam = params.get('user');
+
     return (
         <>
-            <h2>User ID: {user}</h2>
+
+            <div className="col align-self-center">
+                <h2>User ID: {user}</h2>
+            </div>
+
+
+            <ProductosGeneral />
             <AppRouter></AppRouter>
-            <ProductosGeneral/>
         </>
-    )
-        ;
+    );
 
 }
 

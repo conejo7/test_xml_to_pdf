@@ -1,76 +1,92 @@
-import {carnes} from "./Products";
-// import '../../styles/ProductRow.css';
-
-import {useState} from "react";
+import React, {useState} from "react";
 
 function ProductRow({product}) {
     //const stock = product.stock > 0 ? product.stock : "No tiene Stock"
     return (
-        <tr>
-            <td>{product.id}</td>
-            <td>{product.idHistoria}</td>
-            <td>{product.idEmpresa}</td>
-            <td>{product.stsAdmin}</td>
-            <td>{product.stsTecnico}</td>
-        </tr>
+        <>
+            <tr>
+                <td>{product.fec_ingreso}</td>
+                <td>{product.codOrd}</td>
+                <td>{product.id}</td>
+                <td>{product.id_historia}</td>
+                <td>{product.apellidos}</td>
+                <td>{product.nombres}</td>
+                <td>{product.num_id}</td>
+                <td>{product.abreviatura}</td>
+                <td>{product.m_solicitante}</td>
+                <td>{product.sts_tecnico}</td>
+            </tr>
+        </>
     );
 }
 
-function ProductTable({products, filterText, inStockOnly}) {
+function ProductTable({products, filterText, startDate}) {
     const rows = [];
-    let lastCategory = null;
 
+
+    console.log("startDate  " + startDate);
     products.forEach((elem) => {
-        // if (elem.id.indexOf(filterText.toLowerCase()) === -1) {
-        //     return;
-        // }
+        if (elem.nombres.toLowerCase().indexOf(filterText.toLowerCase()) === -1) {
+            return;
+        }
         rows.push(
             <ProductRow
                 product={elem}
                 key={elem.id}/>
         );
-        //lastCategory = elem.category;
     });
+    console.log(rows);
     return (
-        <table className="table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>IdHistoria</th>
-                <th>IdEmpresa </th>
-                <th>StsAdmin</th>
-            </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-        </table>
+        <>
+            {/*<Pruebas ordenes={rows} />*/}
+            <table className="table table-bordered">
+                <thead className="table table-warning ">
+                <tr>
+                    <th>FECHA INGRESO</th>
+                    <th>NEXTLAB</th>
+                    <th>Id AVASUS</th>
+                    <th>HISTORIA</th>
+                    <th>APELLIDOS</th>
+                    <th>NOMBRES</th>
+                    <th>CEDULA</th>
+                    <th>EMPRESA</th>
+                    <th>MED. SOLICITANTE</th>
+                    <th>ESTADO</th>
+                </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+            </table>
+            {/*<Export ordenes={rows}/>*/}
+        </>
+
     );
 }
 
 function SearchBar({filterText, onFilterTextChange}) {
     return (
-        <form>
-            <br/>
-            Busqueda por Id:
-            <br/>
-            <input
-                type={"text"}
-                placeholder={"Buscando..."}
-                value={filterText}
-                onChange={(e) => onFilterTextChange(e.target.value)}
-            />
-            <br/>
-        </form>
+        <>
+
+            <form>
+                <br/>
+                Busqueda por Nombre:
+                <br/>
+                <input
+                    type={"text"}
+                    placeholder={"Buscando..."}
+                    value={filterText}
+                    onChange={(e) => onFilterTextChange(e.target.value)}
+                />
+                <br/>
+            </form>
+        </>
     );
 }
 
 function FilterableProductTable({products}) {
-
-
     const [filterText, setFilterText] = useState('');
-
-
     return (
         <div>
+
             <SearchBar
                 filterText={filterText}
                 onFilterTextChange={setFilterText}
@@ -84,7 +100,11 @@ function FilterableProductTable({products}) {
     );
 }
 
-export function ProductsTable( {ordenes}) {
+export function ProductsTable(products) {
+    const {ordenes } = products;
+    //{ordenes, startDate}
+    //console.log("Fecha" + startDate);
+    //console.log("PRdocu2"+ordenes);
     return <FilterableProductTable products={ordenes}/>;
 }
 
