@@ -6,9 +6,11 @@ import {ProductosGeneral} from "../components/ProductosGeneral";
 export const ProductRoutes = () => {
     return (
         <>
+
+
             <Routes>
 
-                <Route path="table" element={<ProductosGeneral/>}/>
+                <Route path="ingreso" element={<ProductosGeneral/>}/>
 
             </Routes>
         </>

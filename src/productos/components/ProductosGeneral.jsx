@@ -3,12 +3,6 @@ import {ProductsTable} from "./ProductsTable";
 import {getOrdersByDate} from "../helpers/getOrdenes";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import {Export} from "./Export";
-
-import {Pruebas} from "./Pruebas";
-
-
-
 
 
 export const ProductosGeneral = () => {
@@ -37,36 +31,54 @@ export const ProductosGeneral = () => {
 
     return (
         <>
-            <Pruebas ordenes={ordenes} />
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm">
-                    </div>
-                    <div className="col align-self-end">
-                        <DatePicker  dateFormat="dd/MM/yyyy" selected={startDate} onChange={(date) => setStartDate(date)}/>
-                    </div>
-
-                </div>
-            </div>
-            <div className="container">
+            {/*<ExportExcel ordenes={ordenes} />*/}
+            <div className="container text-left">
                 <div className="row">
                     <div className="col">
-                        First, but unordered
+                        FECHA INICIO: <DatePicker  dateFormat="dd/MM/yyyy" selected={startDate} onChange={(date) => setStartDate(date)}/>
                     </div>
-                    <div className="col order-12">
-                        Second, but last
+                    <div className="col">
+                        FECHA FIN: <DatePicker dateFormat="dd/MM/yyyy" selected={endDate} onChange={(date1) => setEndtDate(date1)}/>
                     </div>
-                    <div className="col order-1">
-                        <DatePicker dateFormat="dd/MM/yyyy" selected={endDate} onChange={(date1) => setEndtDate(date1)}/>
-                    </div>
-                    <div className="col order-2">
+                    <div className="col">
                         <button type="button" className="btn btn-primary" onClick={() => getOrdenes()}>Buscar ...</button>
                     </div>
                 </div>
+
             </div>
             <div>
                 <ProductsTable ordenes={ordenes}/>
             </div>
+
+            {/*<div className="container">*/}
+            {/*    <div className="row">*/}
+            {/*        <div className="col-sm">*/}
+            {/*        </div>*/}
+            {/*        <div className="col align-self-end">*/}
+            {/*            /!*<DatePicker  dateFormat="dd/MM/yyyy" selected={startDate} onChange={(date) => setStartDate(date)}/>*!/*/}
+            {/*        </div>*/}
+
+            {/*    </div>*/}
+            {/*</div>*/}
+            {/*<div className="container">*/}
+            {/*    <div className="row">*/}
+            {/*        <div className="col">*/}
+            {/*            First, but unordered*/}
+            {/*        </div>*/}
+            {/*        <div className="col order-12">*/}
+            {/*            Second, but last*/}
+            {/*        </div>*/}
+            {/*        <div className="col order-1">*/}
+            {/*            /!*<DatePicker dateFormat="dd/MM/yyyy" selected={endDate} onChange={(date1) => setEndtDate(date1)}/>*!/*/}
+            {/*        </div>*/}
+            {/*        <div className="col order-2">*/}
+            {/*            /!*<button type="button" className="btn btn-primary" onClick={() => getOrdenes()}>Buscar ...</button>*!/*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            {/*<div>*/}
+            {/*    <ProductsTable ordenes={ordenes}/>*/}
+            {/*</div>*/}
         </>
     );
 };

@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import {ExportExcel} from "./ExportExcel";
+import DatePicker from "react-datepicker";
 
 function ProductRow({product}) {
     //const stock = product.stock > 0 ? product.stock : "No tiene Stock"
@@ -20,25 +22,46 @@ function ProductRow({product}) {
     );
 }
 
-function ProductTable({products, filterText, startDate}) {
+function ProductTable({products,
+                          filterText, filterTextApellido, filterAvasus,
+                            filterNextlab,filterCedula,filterEmpresa}) {
     const rows = [];
-
-
-    console.log("startDate  " + startDate);
+    const ordenes = [];
+    console.log(filterText);
     products.forEach((elem) => {
+
         if (elem.nombres.toLowerCase().indexOf(filterText.toLowerCase()) === -1) {
             return;
         }
+        if (elem.apellidos.toLowerCase().indexOf(filterTextApellido.toLowerCase()) === -1) {
+            return;
+        }
+        if (elem.abreviatura.toLowerCase().indexOf(filterEmpresa.toLowerCase()) === -1) {
+            return;
+        }
+
+        if (elem.id.indexOf(filterAvasus) === -1) {
+            return;
+        }
+        if (elem.codOrd.indexOf(filterNextlab) === -1) {
+            return;
+        }
+        if (elem.num_id.indexOf(filterCedula) === -1) {
+            return;
+        }
+
+
         rows.push(
             <ProductRow
                 product={elem}
                 key={elem.id}/>
         );
+        ordenes.push(elem);
     });
-    console.log(rows);
+
     return (
         <>
-            {/*<Pruebas ordenes={rows} />*/}
+            <ExportExcel ordenes={ordenes}/>
             <table className="table table-bordered">
                 <thead className="table table-warning ">
                 <tr>
@@ -62,46 +85,177 @@ function ProductTable({products, filterText, startDate}) {
     );
 }
 
-function SearchBar({filterText, onFilterTextChange}) {
+function SearchBar({
+                       filterText, onFilterTextChange,
+                       filterTextApellido, onFilterTextChangeApellido,
+                       filterAvasus, onFilterAvasus,
+                       filterNextlab, onFilterNextlab,
+                       filterCedula,  onFilterCedula,
+                       filterEmpresa,onFilterEmpresa
+                   }) {
+
     return (
         <>
-
-            <form>
-                <br/>
-                Busqueda por Nombre:
-                <br/>
-                <input
-                    type={"text"}
-                    placeholder={"Buscando..."}
-                    value={filterText}
-                    onChange={(e) => onFilterTextChange(e.target.value)}
-                />
-                <br/>
-            </form>
+            <div className="container text-left">
+                <div className="row">
+                    <div className="col">
+                        <form>
+                            <br/>
+                            Nextlab:
+                            <br/>
+                            <input
+                                type={"number"}
+                                placeholder={"Buscando por Nextlab..."}
+                                value={filterNextlab}
+                                onChange={(e) => onFilterNextlab(e.target.value)}
+                            />
+                            <br/>
+                        </form>
+                    </div>
+                    <div className="col">
+                        <form>
+                            <br/>
+                            Avasus:
+                            <br/>
+                            <input
+                                type={"number"}
+                                placeholder={"Buscando por Avasus..."}
+                                value={filterAvasus}
+                                onChange={(e) => onFilterAvasus(e.target.value)}
+                            />
+                            <br/>
+                        </form>
+                    </div>
+                    <div className="col">
+                        <form>
+                            <br/>
+                            Cédula:
+                            <br/>
+                            <input
+                                type={"number"}
+                                placeholder={"Buscando por cédula..."}
+                                value={filterCedula}
+                                onChange={(e) => onFilterCedula(e.target.value)}
+                            />
+                            <br/>
+                        </form>
+                    </div>
+                    <div className="col">
+                        <form>
+                            <br/>
+                            Apellido:
+                            <br/>
+                            <input
+                                type={"text"}
+                                placeholder={"Buscando por Apellido..."}
+                                value={filterTextApellido}
+                                onChange={(e) => onFilterTextChangeApellido(e.target.value)}
+                            />
+                            <br/>
+                        </form>
+                    </div>
+                    <div className="col">
+                        <form>
+                            <br/>
+                            Nombre:
+                            <br/>
+                            <input
+                                type={"text"}
+                                placeholder={"Buscando..."}
+                                value={filterText}
+                                onChange={(e) => onFilterTextChange(e.target.value)}
+                            />
+                            <br/>
+                        </form>
+                    </div>
+                    <div className="col">
+                    <form>
+                        <br/>
+                        Empresa:
+                        <br/>
+                        <input
+                            type={"text"}
+                            placeholder={"Buscando por Empresa..."}
+                            value={filterEmpresa}
+                            onChange={(e) => onFilterEmpresa(e.target.value)}
+                        />
+                        <br/>
+                    </form>
+                </div>
+                </div>
+            </div>
         </>
     );
 }
 
 function FilterableProductTable({products}) {
     const [filterText, setFilterText] = useState('');
-    return (
-        <div>
+    const [filterTextApellido, setFilterTextApellido] = useState('');
+    const [filterAvasus, setFilterAvasus] = useState('');
+    const [filterNextlab, setFilterNextlab] = useState('');
+    const [filterCedula, setFilterCedula] = useState('');
+    const [filterEmpresa, setFilterEmpresa] = useState('');
 
-            <SearchBar
-                filterText={filterText}
-                onFilterTextChange={setFilterText}
-            />
-            <br/>
-            <ProductTable
-                products={products}
-                filterText={filterText}
-            />
-        </div>
+
+    const handleClear = () => {
+        setFilterText('');
+        setFilterTextApellido('');
+        setFilterAvasus('');
+        setFilterNextlab('');
+        setFilterCedula('');
+        setFilterEmpresa('');
+    };
+    return (
+        <>
+            <div>
+                <div className="container text-left">
+                    <div className="row">
+                        <div className="col">
+                            <SearchBar
+                                filterText={filterText}
+                                onFilterTextChange={setFilterText}
+
+                                filterTextApellido={filterTextApellido}
+                                onFilterTextChangeApellido={setFilterTextApellido}
+
+                                filterAvasus={filterAvasus}
+                                onFilterAvasus={setFilterAvasus}
+
+                                filterNextlab={filterNextlab}
+                                onFilterNextlab={setFilterNextlab}
+
+                                filterCedula={filterCedula}
+                                onFilterCedula={setFilterCedula}
+
+                                filterEmpresa={filterEmpresa}
+                                onFilterEmpresa={setFilterEmpresa}
+                            />
+                        </div>
+                    </div>
+                    <br/>
+                    <div className="row">
+                        <div className="col">
+                            <button className="btn btn-primary" onClick={handleClear}>Limpiar Campos</button>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <ProductTable
+                    products={products}
+                    filterText={filterText}
+                    filterTextApellido={filterTextApellido}
+                    filterAvasus={filterAvasus}
+                    filterNextlab={filterNextlab}
+                    filterCedula={filterCedula}
+                    filterEmpresa={filterEmpresa}
+                />
+            </div>
+        </>
     );
 }
 
 export function ProductsTable(products) {
-    const {ordenes } = products;
+    const {ordenes} = products;
     //{ordenes, startDate}
     //console.log("Fecha" + startDate);
     //console.log("PRdocu2"+ordenes);

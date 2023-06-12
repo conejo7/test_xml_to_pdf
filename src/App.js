@@ -18,10 +18,18 @@ function App() {
     return (
         <>
 
-            <div className="col align-self-center">
-                <h2>User ID: {user}</h2>
-            </div>
+            {/*<div className="col align-self-left">*/}
+            {/*    <h2>User ID: {user}</h2>*/}
+            {/*</div>*/}
 
+            <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
+                <ul className="navbar-nav ml-auto">
+
+                    <span className="nav-item nav-link text-primary">
+                        User ID: {user}
+                    </span>
+                </ul>
+            </div>
 
             <ProductosGeneral />
             <AppRouter></AppRouter>

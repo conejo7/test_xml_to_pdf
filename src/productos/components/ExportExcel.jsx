@@ -14,7 +14,7 @@ const columns = [
     { header: 'Medico Solicitante', key: 'm_solicitante' },
     { header: 'Estado', key: 'sts_tecnico' }
 ];
-export const Pruebas = (products ) => {
+export const ExportExcel = (products ) => {
     const {ordenes}  = products;
 
     const workSheetName = 'Worksheet-1';
@@ -43,14 +43,7 @@ export const Pruebas = (products ) => {
                 column.alignment = { horizontal: 'center' };
             });
 
-
-            // {carnes.map(elem => (
-            //         <CarneImage key={elem.id} {...elem}/>
-            //     )
-            // )}
-            // loop through data and add each one to worksheet
             ordenes.forEach((singleData) => {
-                console.log("singl"+{...singleData});
                 worksheet.addRow(singleData);
             });
             ordenes.map(uni => {})
@@ -87,20 +80,27 @@ export const Pruebas = (products ) => {
     };
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
-                <div>
-                    Export to excel from table
-                    <br />
-                    <br />
-                    Export to : <input id={myInputId} defaultValue={workBookName} /> .xlsx
-                </div>
+            <div className="row">
+                <div></div>
+                <div></div>
 
-                <br />
-                <div>
-                    <button onClick={saveExcel}>Export</button>
-                </div>
-                <br />
             </div>
+            <div className="container text-left">
+                <div className="row row-cols-2">
+                    <div className="col">Nombre de excel a exportar: <input id={myInputId} defaultValue={workBookName} /> .xlsx  .</div>
+                    <div className="col"><button className="btn btn-primary" onClick={saveExcel}>Export</button></div>
+                </div>
+            </div>
+
+            <br/>
+
+            {/*<div className="container ">*/}
+            {/*    <div className="row">*/}
+            {/*        <div></div>*/}
+            {/*        */}
+            {/*    </div>*/}
+            {/*<br/>*/}
+            {/*</div>*/}
         </>
     );
 };
