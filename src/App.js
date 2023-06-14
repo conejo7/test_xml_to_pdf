@@ -22,17 +22,17 @@ function App() {
             {/*    <h2>User ID: {user}</h2>*/}
             {/*</div>*/}
 
-            <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
-                <ul className="navbar-nav ml-auto">
+            {/*<div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">*/}
+            {/*    <ul className="navbar-nav ml-auto">*/}
 
-                    <span className="nav-item nav-link text-primary">
-                        User ID: {user}
-                    </span>
-                </ul>
-            </div>
+            {/*        <span className="nav-item nav-link text-primary">*/}
+            {/*            User ID: {user}*/}
+            {/*        </span>*/}
+            {/*    </ul>*/}
+            {/*</div>*/}
+            <AppRouter user={user}></AppRouter>
+            {/*<ProductosGeneral />*/}
 
-            <ProductosGeneral />
-            <AppRouter></AppRouter>
         </>
     );
 

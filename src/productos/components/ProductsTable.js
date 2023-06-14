@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {ExportExcel} from "./ExportExcel";
 import DatePicker from "react-datepicker";
+import ExportExcelStyle from "../styles/ExportExcelStyle.css"
+
 
 function ProductRow({product}) {
     //const stock = product.stock > 0 ? product.stock : "No tiene Stock"
@@ -233,12 +235,15 @@ function FilterableProductTable({products}) {
                         </div>
                     </div>
                     <br/>
+
                     <div className="row">
                         <div className="col">
-                            <button className="btn btn-primary" onClick={handleClear}>Limpiar Campos</button>
+                            <button className="btn btn-primary align-right" onClick={handleClear}>Limpiar Campos</button>
                         </div>
+
                     </div>
                 </div>
+
                 <br/>
                 <ProductTable
                     products={products}
@@ -250,6 +255,7 @@ function FilterableProductTable({products}) {
                     filterEmpresa={filterEmpresa}
                 />
             </div>
+
         </>
     );
 }

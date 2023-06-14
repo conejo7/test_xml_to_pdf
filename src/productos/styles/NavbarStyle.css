@@ -1,0 +1,43 @@
+
+
+.navbar-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #fff3cd;
+}
+
+
+.nav-item {
+    margin: 05px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    height: 100%;
+    padding: 0 10px;
+}
+
+.nav-link:hover {
+    background-color: #f5b9b9;
+}
+
+
+
+.navbar-light .navbar-nav .nav-link {
+    color: #01070e;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #0056b3;
+}
+
