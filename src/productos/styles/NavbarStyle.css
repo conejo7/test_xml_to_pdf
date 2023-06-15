@@ -1,5 +1,3 @@
-
-
 .navbar-nav {
     display: flex;
     justify-content: space-between;
@@ -12,7 +10,6 @@
 .navbar {
     background-color: #fff3cd;
 }
-
 
 .nav-item {
     margin: 05px;
@@ -30,8 +27,6 @@
 .nav-link:hover {
     background-color: #f5b9b9;
 }
-
-
 
 .navbar-light .navbar-nav .nav-link {
     color: #01070e;
