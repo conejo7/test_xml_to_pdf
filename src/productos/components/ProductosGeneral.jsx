@@ -58,7 +58,7 @@ export const ProductosGeneral = () => {
                     </div>
                     <div className="col-2">
                         <button type="button" className="btn btn-primary" onClick={() => getOrdenes()}>Buscar ...</button>
-                                 Limite máximo 10000 registros
+                                 Limite máximo 10000 registros.
                     </div>
                 </div>
 
