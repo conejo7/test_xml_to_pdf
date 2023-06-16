@@ -11,23 +11,39 @@ export const ProductosGeneral = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndtDate] = useState(new Date());
 
+    const [isLoading, setIsLoading] = useState(true);
 
     const getOrdenes = async () => {
-
+        console.log("presiono")
+        setIsLoading(true);
         const fechaFormateadaStart = moment(startDate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format('YYYY-MM-DD');
 
         const fechaFormateadaEnd = moment(endDate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format('YYYY-MM-DD');
 
         if (fechaFormateadaStart===fechaFormateadaEnd){
             const fechaRestada = moment(fechaFormateadaStart).subtract(1, 'day').format('YYYY-MM-DD');
-            console.log(fechaRestada);
+            console.log("fechaRestada"+fechaRestada + fechaFormateadaEnd);
             const newOrdenes = await getOrdersByDate(fechaRestada, fechaFormateadaEnd);
+            console.log(newOrdenes);
             setOrdenes(newOrdenes);
+            setIsLoading(false);
+
+        }else {
+            const newOrdenes = await getOrdersByDate(fechaFormateadaStart, fechaFormateadaEnd);
+            console.log(newOrdenes);
+            setOrdenes(newOrdenes);
+            setIsLoading(false);
         }
+
     }
     useEffect(() => {
         getOrdenes();
+
     }, [])
+
+    if (isLoading) {
+        return <div>Cargando datos...</div>;
+    }
 
     return (
         <>
