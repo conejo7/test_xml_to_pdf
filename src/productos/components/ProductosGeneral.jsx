@@ -56,8 +56,9 @@ export const ProductosGeneral = () => {
                     <div className="col">
                         FECHA FIN: <DatePicker dateFormat="dd/MM/yyyy" selected={endDate} onChange={(date1) => setEndtDate(date1)}/>
                     </div>
-                    <div className="col">
+                    <div className="col-2">
                         <button type="button" className="btn btn-primary" onClick={() => getOrdenes()}>Buscar ...</button>
+                                 Limite máximo 10000 registros
                     </div>
                 </div>
 
