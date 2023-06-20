@@ -11,6 +11,9 @@ export const ProductosGeneral = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndtDate] = useState(new Date());
 
+    const [startOrder, setstartOrder] = useState(0);
+    const [endOrder, setendOrder] = useState(0);
+
     const [isLoading, setIsLoading] = useState(true);
 
     const getOrdenes = async () => {
@@ -20,20 +23,25 @@ export const ProductosGeneral = () => {
 
         const fechaFormateadaEnd = moment(endDate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format('YYYY-MM-DD');
 
-        if (fechaFormateadaStart===fechaFormateadaEnd){
-            const fechaRestada = moment(fechaFormateadaStart).subtract(1, 'day').format('YYYY-MM-DD');
-            console.log("fechaRestada"+fechaRestada + fechaFormateadaEnd);
-            const newOrdenes = await getOrdersByDate(fechaRestada, fechaFormateadaEnd);
-            console.log(newOrdenes);
-            setOrdenes(newOrdenes);
-            setIsLoading(false);
+        // if (fechaFormateadaStart===fechaFormateadaEnd){
+        //     const fechaRestada = moment(fechaFormateadaStart).subtract(1, 'day').format('YYYY-MM-DD');
+        //     console.log("fechaRestada"+fechaRestada + fechaFormateadaEnd);
+        //     const newOrdenes = await getOrdersByDate(fechaRestada, fechaFormateadaEnd);
+        //     console.log(newOrdenes);
+        //     setOrdenes(newOrdenes);
+        //     setIsLoading(false);
+        //
+        // }else {
+        //     const newOrdenes = await getOrdersByDate(fechaFormateadaStart, fechaFormateadaEnd);
+        //     console.log(newOrdenes);
+        //     setOrdenes(newOrdenes);
+        //     setIsLoading(false);
+        // }
 
-        }else {
-            const newOrdenes = await getOrdersByDate(fechaFormateadaStart, fechaFormateadaEnd);
-            console.log(newOrdenes);
-            setOrdenes(newOrdenes);
-            setIsLoading(false);
-        }
+        const newOrdenes = await getOrdersByDate(fechaFormateadaStart, fechaFormateadaEnd);
+        console.log(newOrdenes);
+        setOrdenes(newOrdenes);
+        setIsLoading(false);
 
     }
     useEffect(() => {
@@ -50,6 +58,18 @@ export const ProductosGeneral = () => {
             {/*<ExportExcel ordenes={ordenes} />*/}
             <div className="container text-left">
                 <div className="row">
+                    <div className="col">
+                        ORDEN INICIO: <input type="number"
+                                             placeholder={"Buscando por id avasus..."}
+                                             onChange={(startOrder) => setstartOrder(startOrder)}
+                    />
+                    </div>
+                    <div className="col">
+                        ORDEN FINAL: <input type="number"
+                                            placeholder={"Buscando por id avasus..."}
+                                            onChange={(endOrder) => setendOrder(endOrder)}
+                    />
+                    </div>
                     <div className="col">
                         FECHA INICIO: <DatePicker  dateFormat="dd/MM/yyyy" selected={startDate} onChange={(date) => setStartDate(date)}/>
                     </div>

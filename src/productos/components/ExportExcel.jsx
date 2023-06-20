@@ -18,7 +18,7 @@ export const ExportExcel = (products ) => {
     const {ordenes}  = products;
 
     const workSheetName = 'Worksheet-1';
-    const workBookName = 'MyWorkBook';
+    const workBookName = 'Reporte';
     const myInputId = 'myInput';
     console.log("PRdocu2"+ordenes);
     const workbook = new Excel.Workbook();

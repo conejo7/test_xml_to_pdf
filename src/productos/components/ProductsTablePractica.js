@@ -1,34 +1,46 @@
 import React, {useState} from "react";
 import {ExportExcel} from "./ExportExcel";
-import DatePicker from "react-datepicker";
-import ExportExcelStyle from "../styles/ExportExcelStyle.css"
+
 
 
 function ProductRow({product}) {
     //const stock = product.stock > 0 ? product.stock : "No tiene Stock"
+    let stsTecnicoValue;
+
+    if (product.sts_tecnico === 'CO') {
+        stsTecnicoValue = 'COMPLETO';
+    } else if (product.sts_tecnico === 'IN') {
+        stsTecnicoValue = 'INCOMPLETO';
+    }else if (product.sts_tecnico === 'PE') {
+        stsTecnicoValue = 'PENDIENTE';
+    }else if (product.sts_tecnico === 'AU') {
+        stsTecnicoValue = 'AUDITADO';
+    } else {
+        stsTecnicoValue = '';
+    }
     return (
         <>
             <tr>
                 <td>{product.fec_ingreso}</td>
                 <td>{product.codOrd}</td>
                 <td>{product.id}</td>
-                <td>{product.id_historia}</td>
+                {/*<td>{product.id_historia}</td>*/}
                 <td>{product.apellidos}</td>
                 <td>{product.nombres}</td>
                 <td>{product.num_id}</td>
                 <td>{product.abreviatura}</td>
-                <td>{product.m_solicitante}</td>
-                <td>{product.sts_tecnico}</td>
+                <td>{product.descripcion}</td>
+                <td>{stsTecnicoValue}</td>
             </tr>
         </>
     );
 }
 
-function ProductTable({products,
+function ProductTablePracticas({products,
                           filterText, filterTextApellido, filterAvasus,
                             filterNextlab,filterCedula,filterEmpresa}) {
-    const rows = [];
-    const ordenes = [];
+    const rowsPracticas = [];
+    const ordenes2 = [];
     console.log(filterText);
     products.forEach((elem) => {
 
@@ -53,42 +65,33 @@ function ProductTable({products,
         }
 
 
-        rows.push(
+        rowsPracticas.push(
+            // key={`${product.category}-${product.id}`}
             <ProductRow
                 product={elem}
-                key={elem.id}/>
+                key={`${elem.id}-${elem.id_practica}`}/>
         );
-        ordenes.push(elem);
+        ordenes2.push(elem);
     });
 
     return (
         <>
-            <div className="row">
-                <div  className="col">
-                    <h6>Número de filas a exportar: {rows.length}</h6>
-                </div>
-                <div className="col">
-                    <ExportExcel ordenes={ordenes}/>
-                </div>
-            </div>
-
-
-            <table className="table table-bordered">
+            {/*<ExportExcel ordenes={ordenes2}/>*/}
+            <table className="table table-borSdered">
                 <thead className="table table-warning ">
                 <tr>
                     <th>FECHA INGRESO</th>
                     <th>ID NEXTLAB</th>
                     <th>ID AVASUS</th>
-                    <th>ID HISTORIA</th>
                     <th>APELLIDOS</th>
                     <th>NOMBRES</th>
                     <th>CEDULA</th>
                     <th>EMPRESA</th>
-                    <th>MED. SOLICITANTE</th>
-                    <th>ESTADO</th>
+                    <th>NOMBRE PRACTICA</th>
+                    <th>ESTADO PRACTICA</th>
                 </tr>
                 </thead>
-                <tbody>{rows}</tbody>
+                <tbody>{rowsPracticas}</tbody>
             </table>
             {/*<Export ordenes={rows}/>*/}
         </>
@@ -199,7 +202,7 @@ function SearchBar({
     );
 }
 
-function FilterableProductTable({products}) {
+function FilterableProductTablePracticas({products}) {
     const [filterText, setFilterText] = useState('');
     const [filterTextApellido, setFilterTextApellido] = useState('');
     const [filterAvasus, setFilterAvasus] = useState('');
@@ -254,7 +257,7 @@ function FilterableProductTable({products}) {
                 </div>
 
                 <br/>
-                <ProductTable
+                <ProductTablePracticas
                     products={products}
                     filterText={filterText}
                     filterTextApellido={filterTextApellido}
@@ -269,12 +272,10 @@ function FilterableProductTable({products}) {
     );
 }
 
-export function ProductsTable(products) {
-    const {ordenes} = products;
-    //{ordenes, startDate}
-    //console.log("Fecha" + startDate);
-    //console.log("PRdocu2"+ordenes);
-    return <FilterableProductTable products={ordenes}/>;
+export function ProductsTablePractica(products) {
+    const {practicas} = products;
+    // const {ordenes} = products;
+    return <FilterableProductTablePracticas products={practicas}/>;
 }
 
 
