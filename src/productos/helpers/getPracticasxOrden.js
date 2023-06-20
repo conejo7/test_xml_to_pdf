@@ -1,7 +1,7 @@
 export const getPracticasByDate = async (startDate, endDate ) => {
 
 
-     const url = `http://localhost:8091/practicas?fechaInicio=${startDate}&fechaFinal=${endDate}`;
+     const url = `http://192.168.56.101:8091/practicas?fechaInicio=${startDate}&fechaFinal=${endDate}`;
 
     const resp = await fetch(url);
 
