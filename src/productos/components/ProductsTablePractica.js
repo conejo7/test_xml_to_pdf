@@ -157,6 +157,8 @@ function SearchBar({
                             <br/>
                         </form>
                     </div>
+                </div>
+                <div className="row">
                     <div className="col">
                         <form>
                             <br/>

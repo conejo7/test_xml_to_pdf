@@ -70,7 +70,7 @@ export const PracticasxOrden = () => {
                                                  />
                     </div>
                     <div className="col">
-                        Limite máximo 10000 registros.
+                        Limite máximo 20000 registros.
                         <button type="button" className="btn btn-primary" onClick={() => getPracticas()}>Buscar ...</button>
                     </div>
                 </div>
