@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ExportExcel} from "./ExportExcel";
+import {ExportExcelPracticas} from "./ExportExcelPracticas";
 
 
 
@@ -31,6 +31,7 @@ function ProductRow({product}) {
                 <td>{product.abreviatura}</td>
                 <td>{product.descripcion}</td>
                 <td>{stsTecnicoValue}</td>
+                <td>{product.first_user}</td>
             </tr>
         </>
     );
@@ -71,12 +72,13 @@ function ProductTablePracticas({products,
                 product={elem}
                 key={`${elem.id}-${elem.id_practica}`}/>
         );
+
         ordenes2.push(elem);
     });
 
     return (
         <>
-            {/*<ExportExcel ordenes={ordenes2}/>*/}
+            <ExportExcelPracticas ordenes={ordenes2}/>
             <table className="table table-borSdered">
                 <thead className="table table-warning ">
                 <tr>
@@ -89,6 +91,7 @@ function ProductTablePracticas({products,
                     <th>EMPRESA</th>
                     <th>NOMBRE PRACTICA</th>
                     <th>ESTADO PRACTICA</th>
+                    <th>USUARIO INGRESO</th>
                 </tr>
                 </thead>
                 <tbody>{rowsPracticas}</tbody>

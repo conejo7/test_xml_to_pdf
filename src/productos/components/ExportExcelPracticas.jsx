@@ -6,19 +6,19 @@ const columns = [
     { header: 'Fecha Ingreso', key: 'fec_ingreso' },
     { header: 'Nextalb Id', key: 'codOrd' },
     { header: 'Avasus Id', key: 'id' },
-    { header: 'Historia Id', key: 'id_historia' },
     { header: 'Apellidos', key: 'apellidos' },
     { header: 'Nombres', key: 'nombres' },
     { header: 'Cedula', key: 'num_id' },
-    { header: 'Abreviatura', key: 'abreviatura' },
-    { header: 'Medico Solicitante', key: 'm_solicitante' },
-    { header: 'Estado', key: 'sts_tecnico' }
+    { header: 'Empresa', key: 'abreviatura' },
+    { header: 'Nombre Practica', key: 'descripcion' },
+    { header: 'Estado Practica', key: 'sts_tecnico' },
+    { header: 'Usuario Ingreso', key: 'first_user' },
 ];
-export const ExportExcel = (products ) => {
+export const ExportExcelPracticas = (products ) => {
     const {ordenes}  = products;
 
     const workSheetName = 'Worksheet-1';
-    const workBookName = 'Reporte';
+    const workBookName = 'ReportePracticas';
     const myInputId = 'myInput';
     // console.log("PRdocu2"+ordenes);
     const workbook = new Excel.Workbook();

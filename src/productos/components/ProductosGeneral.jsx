@@ -3,6 +3,7 @@ import {ProductsTable} from "./ProductsTable";
 import {getOrdersByDate} from "../helpers/getOrdenes";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+import {getOrdersId} from "../helpers/getOrdenesId";
 
 
 export const ProductosGeneral = () => {
@@ -23,25 +24,23 @@ export const ProductosGeneral = () => {
 
         const fechaFormateadaEnd = moment(endDate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format('YYYY-MM-DD');
 
-        // if (fechaFormateadaStart===fechaFormateadaEnd){
-        //     const fechaRestada = moment(fechaFormateadaStart).subtract(1, 'day').format('YYYY-MM-DD');
-        //     console.log("fechaRestada"+fechaRestada + fechaFormateadaEnd);
-        //     const newOrdenes = await getOrdersByDate(fechaRestada, fechaFormateadaEnd);
-        //     console.log(newOrdenes);
-        //     setOrdenes(newOrdenes);
-        //     setIsLoading(false);
-        //
-        // }else {
-        //     const newOrdenes = await getOrdersByDate(fechaFormateadaStart, fechaFormateadaEnd);
-        //     console.log(newOrdenes);
-        //     setOrdenes(newOrdenes);
-        //     setIsLoading(false);
-        // }
+        if (startOrder===0 ){
+            const newOrdenes = await getOrdersByDate(fechaFormateadaStart, fechaFormateadaEnd);
+            console.log(newOrdenes);
+            setOrdenes(newOrdenes);
+            setIsLoading(false);
 
-        const newOrdenes = await getOrdersByDate(fechaFormateadaStart, fechaFormateadaEnd);
-        console.log(newOrdenes);
-        setOrdenes(newOrdenes);
-        setIsLoading(false);
+        }else {
+            const newOrdenes = await getOrdersId(startOrder, endOrder);
+            console.log(newOrdenes);
+            setOrdenes(newOrdenes);
+            setIsLoading(false);
+        }
+
+        // const newOrdenes = await getOrdersByDate(fechaFormateadaStart, fechaFormateadaEnd);
+        // console.log(newOrdenes);
+        // setOrdenes(newOrdenes);
+        // setIsLoading(false);
 
     }
     useEffect(() => {
@@ -61,13 +60,15 @@ export const ProductosGeneral = () => {
                     <div className="col">
                         ORDEN INICIO: <input type="number"
                                              placeholder={"Buscando por id avasus..."}
-                                             onChange={(startOrder) => setstartOrder(startOrder)}
+                                             value={startOrder}
+                                             onChange={(startOrder) => setstartOrder(startOrder.target.value)}
                     />
                     </div>
                     <div className="col">
                         ORDEN FINAL: <input type="number"
                                             placeholder={"Buscando por id avasus..."}
-                                            onChange={(endOrder) => setendOrder(endOrder)}
+                                            value={endOrder}
+                                            onChange={(endOrder) => setendOrder(endOrder.target.value)}
                     />
                     </div>
                     <div className="col">
@@ -76,9 +77,9 @@ export const ProductosGeneral = () => {
                     <div className="col">
                         FECHA FIN: <DatePicker dateFormat="dd/MM/yyyy" selected={endDate} onChange={(date1) => setEndtDate(date1)}/>
                     </div>
-                    <div className="col-2">
-                        <button type="button" className="btn btn-primary" onClick={() => getOrdenes()}>Buscar ...</button>
-                                 Limite máximo 10000 registros.
+                    <div className="col">
+                        Limite 10000 registros<button type="button" className="btn btn-primary" onClick={() => getOrdenes()}>Buscar ...</button>
+
                     </div>
                 </div>
 
@@ -87,35 +88,6 @@ export const ProductosGeneral = () => {
                 <ProductsTable ordenes={ordenes}/>
             </div>
 
-            {/*<div className="container">*/}
-            {/*    <div className="row">*/}
-            {/*        <div className="col-sm">*/}
-            {/*        </div>*/}
-            {/*        <div className="col align-self-end">*/}
-            {/*            /!*<DatePicker  dateFormat="dd/MM/yyyy" selected={startDate} onChange={(date) => setStartDate(date)}/>*!/*/}
-            {/*        </div>*/}
-
-            {/*    </div>*/}
-            {/*</div>*/}
-            {/*<div className="container">*/}
-            {/*    <div className="row">*/}
-            {/*        <div className="col">*/}
-            {/*            First, but unordered*/}
-            {/*        </div>*/}
-            {/*        <div className="col order-12">*/}
-            {/*            Second, but last*/}
-            {/*        </div>*/}
-            {/*        <div className="col order-1">*/}
-            {/*            /!*<DatePicker dateFormat="dd/MM/yyyy" selected={endDate} onChange={(date1) => setEndtDate(date1)}/>*!/*/}
-            {/*        </div>*/}
-            {/*        <div className="col order-2">*/}
-            {/*            /!*<button type="button" className="btn btn-primary" onClick={() => getOrdenes()}>Buscar ...</button>*!/*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <ProductsTable ordenes={ordenes}/>*/}
-            {/*</div>*/}
         </>
     );
 };

@@ -24,9 +24,11 @@ function ProductRow({product}) {
     );
 }
 
-function ProductTable({products,
+function ProductTable({
+                          products,
                           filterText, filterTextApellido, filterAvasus,
-                            filterNextlab,filterCedula,filterEmpresa}) {
+                          filterNextlab, filterCedula, filterEmpresa, filterHistoria
+                      }) {
     const rows = [];
     const ordenes = [];
     console.log(filterText);
@@ -51,6 +53,9 @@ function ProductTable({products,
         if (elem.num_id.indexOf(filterCedula) === -1) {
             return;
         }
+        if (elem.id_historia.indexOf(filterHistoria) === -1) {
+            return;
+        }
 
 
         rows.push(
@@ -64,8 +69,8 @@ function ProductTable({products,
     return (
         <>
             <div className="row">
-                <div  className="col">
-                    <h6>Número de filas a exportar: {rows.length}</h6>
+                <div className="col">
+                    <h6>Número de filas: {rows.length}</h6>
                 </div>
                 <div className="col">
                     <ExportExcel ordenes={ordenes}/>
@@ -101,10 +106,19 @@ function SearchBar({
                        filterTextApellido, onFilterTextChangeApellido,
                        filterAvasus, onFilterAvasus,
                        filterNextlab, onFilterNextlab,
-                       filterCedula,  onFilterCedula,
-                       filterEmpresa,onFilterEmpresa
+                       filterCedula, onFilterCedula,
+                       filterEmpresa, onFilterEmpresa,
+                       filerHistoria, onFilterHistoria
                    }) {
-
+    const handleClear = () => {
+        onFilterTextChange('');
+        onFilterTextChangeApellido('');
+        onFilterAvasus('');
+        onFilterNextlab('');
+        onFilterCedula('');
+        onFilterEmpresa('');
+        onFilterHistoria('');
+        };
     return (
         <>
             <div className="container text-left">
@@ -154,6 +168,22 @@ function SearchBar({
                     <div className="col">
                         <form>
                             <br/>
+                            Id Historia Avasus:
+                            <br/>
+                            <input
+                                type={"number"}
+                                placeholder={"Buscando por Id Historia..."}
+                                value={filerHistoria}
+                                onChange={(e) => onFilterHistoria(e.target.value)}
+                            />
+                            <br/>
+                        </form>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <form>
+                            <br/>
                             Apellido:
                             <br/>
                             <input
@@ -180,19 +210,24 @@ function SearchBar({
                         </form>
                     </div>
                     <div className="col">
-                    <form>
+                        <form>
+                            <br/>
+                            Empresa:
+                            <br/>
+                            <input
+                                type={"text"}
+                                placeholder={"Buscando por Empresa..."}
+                                value={filterEmpresa}
+                                onChange={(e) => onFilterEmpresa(e.target.value)}
+                            />
+                            <br/>
+                        </form>
+                    </div>
+                    <div className="col">
                         <br/>
-                        Empresa:
+                                <button className="btn btn-primary align-center" onClick={handleClear}>Limpiar Campos</button>
                         <br/>
-                        <input
-                            type={"text"}
-                            placeholder={"Buscando por Empresa..."}
-                            value={filterEmpresa}
-                            onChange={(e) => onFilterEmpresa(e.target.value)}
-                        />
-                        <br/>
-                    </form>
-                </div>
+                    </div>
                 </div>
             </div>
         </>
@@ -206,16 +241,18 @@ function FilterableProductTable({products}) {
     const [filterNextlab, setFilterNextlab] = useState('');
     const [filterCedula, setFilterCedula] = useState('');
     const [filterEmpresa, setFilterEmpresa] = useState('');
+    const [filterHistoria, setfilterHistoria] = useState('');
 
 
-    const handleClear = () => {
-        setFilterText('');
-        setFilterTextApellido('');
-        setFilterAvasus('');
-        setFilterNextlab('');
-        setFilterCedula('');
-        setFilterEmpresa('');
-    };
+    // const handleClear = () => {
+    //     setFilterText('');
+    //     setFilterTextApellido('');
+    //     setFilterAvasus('');
+    //     setFilterNextlab('');
+    //     setFilterCedula('');
+    //     setFilterEmpresa('');
+    //     setfilterHistoria('');
+    // };
     return (
         <>
             <div>
@@ -240,17 +277,22 @@ function FilterableProductTable({products}) {
 
                                 filterEmpresa={filterEmpresa}
                                 onFilterEmpresa={setFilterEmpresa}
+
+                                filerHistoria={filterHistoria}
+                                onFilterHistoria={setfilterHistoria}
+
                             />
                         </div>
                     </div>
                     <br/>
 
-                    <div className="row">
-                        <div className="col">
-                            <button className="btn btn-primary align-right" onClick={handleClear}>Limpiar Campos</button>
-                        </div>
+                    {/*<div className="row">*/}
+                    {/*    <div className="col">*/}
+                    {/*        <button className="btn btn-primary align-right" onClick={handleClear}>Limpiar Campos*/}
+                    {/*        </button>*/}
+                    {/*    </div>*/}
 
-                    </div>
+                    {/*</div>*/}
                 </div>
 
                 <br/>
@@ -262,6 +304,7 @@ function FilterableProductTable({products}) {
                     filterNextlab={filterNextlab}
                     filterCedula={filterCedula}
                     filterEmpresa={filterEmpresa}
+                    filterHistoria={filterHistoria}
                 />
             </div>
 
@@ -273,7 +316,7 @@ export function ProductsTable(products) {
     const {ordenes} = products;
     //{ordenes, startDate}
     //console.log("Fecha" + startDate);
-    //console.log("PRdocu2"+ordenes);
+    // console.log("PRdocu2"+ordenes);
     return <FilterableProductTable products={ordenes}/>;
 }
 
