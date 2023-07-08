@@ -1,7 +1,7 @@
 export const getOrdersId = async (startOrder, endOrder) => {
 
 
-    const url = `http://192.168.56.101:8091/find?ordenInicio=${startOrder}&ordenFinal=${endOrder}`;
+    const url = `http://localhost:8091/find?ordenInicio=${startOrder}&ordenFinal=${endOrder}`;
 
     const resp = await fetch(url);
 

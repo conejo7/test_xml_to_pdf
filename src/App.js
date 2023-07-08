@@ -7,6 +7,10 @@ import {ProductosGeneral} from "./productos/components/ProductosGeneral";
 
 import "react-datepicker/dist/react-datepicker.css";
 import React from "react";
+import {Link, Navigate} from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import {Route, Routes} from "react-router";
+import {ProductRoutes} from "./productos/routes/ProductRoutes";
 
 
 function App() {
@@ -15,24 +19,14 @@ function App() {
     const user = params1.get('user');
     console.log(user);
 
+    // if (window.location.pathname === '/') {
+    //     // <Nav.Link as={Link} to="/ingreso">ORDENES </Nav.Link>
+    //     console.log("test")
+    //     return <Navigate to="/avanexrea" />;
+    // }
     return (
         <>
-
-            {/*<div className="col align-self-left">*/}
-            {/*    <h2>User ID: {user}</h2>*/}
-            {/*</div>*/}
-
-            {/*<div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">*/}
-            {/*    <ul className="navbar-nav ml-auto">*/}
-
-            {/*        <span className="nav-item nav-link text-primary">*/}
-            {/*            User ID: {user}*/}
-            {/*        </span>*/}
-            {/*    </ul>*/}
-            {/*</div>*/}
             <AppRouter user={user}></AppRouter>
-            {/*<ProductosGeneral />*/}
-
         </>
     );
 
